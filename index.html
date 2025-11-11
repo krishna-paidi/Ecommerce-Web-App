@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home | Flash Shop</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="heading d-flex grow-shrink-basics align-center">
+        <div class="heading-title-icon d-flex grow-shrink-basics align-center">
+            <h1 class="heading-title">Flash Shop</h1>
+        </div>
+
+        <div class="search-box-container relative">
+            <input class="search-box-input" placeholder="Search Products">
+            <span class="material-icons-outlined absolute top-0 left-0">search</span>
+        </div>
+
+        <nav class="navigation">
+            <ul class="list-non-bullet d-flex align-center gap">
+                <li class="list-item-inline">
+                    <a href="./cart.html" class="link cursor">
+                        <span class="nav-icon material-icons-outlined">shopping_cart</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Products Grid -->
+    <div class="d-flex wrap gap" id="products"></div>
+
+    <script>
+        const products = [
+  {
+    _id: "001",
+    name: "Men Checked Shirt",
+    img: "https://rukminim1.flixcart.com/image/880/1056/kwtkxow0/shirt/c/u/n/xl-brd-white-p-v-creations-original-imag9f3yxz7d89t4.jpeg?q=50",
+    alt: "mens shirt",
+    brand: "Roadster",
+    newPrice: 1750,
+    oldPrice: 2499,
+    discount: 67,
+    size: "L",
+    idealFor: "M",
+    rating: 4.2,
+  },
+  {
+    _id: "002",
+    name: "Women Crop Top",
+    img: "https://rukminim1.flixcart.com/image/880/1056/krf91u80/top/g/n/v/xs-lbt-13-maroon-london-belly-original-imag57qgzcm3hsmv.jpeg?q=50",
+    alt: "womens top",
+    brand: "Forever 21",
+    newPrice: 750,
+    oldPrice: 1499,
+    discount: 75,
+    size: "M",
+    idealFor: "W",
+    rating: 4.5,
+  },
+  {
+    _id: "003",
+    name: "Women Solid Shirt",
+    img: "https://rukminim1.flixcart.com/image/880/1056/kf2v3ww0/top/z/f/t/l-044-yukon01-original-imafvhkejzfhqaqz.jpeg?q=50",
+    alt: "Women shirt",
+    brand: "Zara",
+    newPrice: 2750,
+    oldPrice: 3499,
+    discount: 46,
+    size: "L",
+    idealFor: "W",
+    rating: 3.9,
+  },
+  {
+    _id: "004",
+    name: "Men Solid Shirt",
+    brand: "Peter England",
+    img: "https://rukminim1.flixcart.com/image/580/696/kwzap3k0/shirt/r/q/j/l-lstr-acqua-p-v-creations-original-imag9jggj6naa4cu.jpeg?q=50",
+    alt: "mens shirt",
+    newPrice: 2554,
+    oldPrice: 3499,
+    discount: 27,
+    size: "XL",
+    idealFor: "M",
+    rating: 3.5,
+  },
+  {
+    _id: "005",
+    name: "Men Solid T-Shirt",
+    brand: "Roadster",
+    img: "https://rukminim1.flixcart.com/image/580/696/kz8qsnk0/t-shirt/g/z/n/m-db1024-42-3bros-original-imagbawh38j3ghzr.jpeg?q=50",
+    alt: "mens t-shirt",
+    newPrice: 3750,
+    oldPrice: 4499,
+    discount: 21,
+    size: "M",
+    idealFor: "M",
+    rating: 3.2,
+  },
+  {
+    _id: "006",
+    name: "Women Printed Top",
+    img: "https://rukminim1.flixcart.com/image/580/696/kzhbfrk0/top/v/b/6/m-fancy-top-shree-villa-original-imagbhgpqkj9snta.jpeg?q=50",
+    alt: "Women Printed Top",
+    brand: "Zara",
+    newPrice: 1750,
+    oldPrice: 2499,
+    discount: 27,
+    size: "S",
+    idealFor: "W",
+    rating: 3.2,
+  },
+  {
+    _id: "007",
+    name: "Men Regular V Neck T-Shirt",
+    img: "https://rukminim1.flixcart.com/image/580/696/k6gsk280/t-shirt/e/z/h/xl-pp-374-385-379-revesto-original-imafkxwnetcxt4xr.jpeg?q=50",
+    alt: "mens t-shirt",
+    brand: "DNMX",
+    newPrice: 3750,
+    oldPrice: 4499,
+    discount: 90,
+    size: "XXL",
+    idealFor: "M",
+    rating: 2.2,
+  },
+  {
+    _id: "008",
+    name: "Women Regular Top",
+    img: "https://rukminim1.flixcart.com/image/580/696/knni7ww0/top/o/m/o/s-dmp303-dmp-fashion-original-imag2a5qkjgjf22k.jpeg?q=50",
+    alt: "Women Regular Top",
+    brand: "Forever 21",
+    newPrice: 2750,
+    oldPrice: 3499,
+    discount: 44,
+    size: "XXL",
+    idealFor: "W",
+    rating: 2.2,
+  }
+];
+const productContainer = document.getElementById("products");
+
+    // Render products
+    for (let product of products) {
+      const cardContainer = document.createElement("div");
+      cardContainer.classList.add("card", "card-vertical", "d-flex", "direction-column", "relative", "shadow");
+
+      /** Image Container */
+      const imageContainer = document.createElement("div");
+      imageContainer.classList.add("card-image-container");
+
+      const image = document.createElement("img");
+      image.classList.add("card-image");
+      image.setAttribute("src", product.img);
+      image.setAttribute("alt", product.name);
+      imageContainer.appendChild(image);
+
+      /** Card Details Container */
+      const cardDetailsContainer = document.createElement("div");
+      cardDetailsContainer.classList.add("card-details");
+
+      const brandContainer = document.createElement("div");
+      brandContainer.classList.add("card-title");
+      brandContainer.innerText = product.brand;
+      cardDetailsContainer.appendChild(brandContainer);
+
+      /** Card Description */
+      const descriptionContainer = document.createElement("div");
+      descriptionContainer.classList.add("card-description");
+
+      const name = document.createElement("p");
+      name.classList.add("card-des");
+      name.innerText = product.name;
+      descriptionContainer.appendChild(name);
+
+      const price = document.createElement("p");
+      price.classList.add("card-price", "d-flex", "align-end", "gap-sm");
+      price.innerText = `Rs. ${product.newPrice}`;
+
+      const oldPrice = document.createElement("span");
+      oldPrice.classList.add("price-strike-through");
+      oldPrice.innerText = `Rs ${product.oldPrice}`;
+      price.appendChild(oldPrice);
+
+      const discount = document.createElement("span");
+      discount.classList.add("discount");
+      discount.innerText = `(${product.discount}% OFF)`;
+      price.appendChild(discount);
+
+      descriptionContainer.appendChild(price);
+
+      const ratings = document.createElement("p");
+      ratings.classList.add("d-flex", "align-center");
+      const rating = document.createElement("span");
+      rating.innerText = product.rating;
+      ratings.appendChild(rating);
+
+      const star = document.createElement("span");
+      star.classList.add("material-icons-outlined", "star");
+      star.innerText = "star";
+      ratings.appendChild(star);
+
+      descriptionContainer.appendChild(ratings);
+
+      cardDetailsContainer.appendChild(descriptionContainer);
+
+      /** CTA Button */
+      const ctaButton = document.createElement("div");
+      const cartButton = document.createElement("button");
+      cartButton.classList.add("button", "btn-primary", "btn-icon", "cart-btn", "d-flex", "align-center", "justify-center", "gap", "cursor", "btn-margin");
+      cartButton.setAttribute("data-id", product._id);
+
+      const cartIcon = document.createElement("span");
+      cartIcon.classList.add("material-icons-outlined");
+      cartIcon.innerText = "shopping_cart";
+      cartButton.appendChild(cartIcon);
+
+      const buttonText = document.createElement("span");
+      buttonText.innerText = "Add To Cart";
+      cartButton.appendChild(buttonText);
+
+      // Add event listener for cart button
+      cartButton.addEventListener("click", () => {
+        addToCart(product);
+      });
+
+      ctaButton.appendChild(cartButton);
+      cardDetailsContainer.appendChild(ctaButton);
+
+      cardContainer.appendChild(imageContainer);
+      cardContainer.appendChild(cardDetailsContainer);
+      productContainer.appendChild(cardContainer);
+    }
+
+    // Add to cart function
+    function addToCart(product) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const exists = cart.find(item => item._id === product._id);
+      if (!exists) {
+        cart.push(product);
+        localStorage.setItem("cart", JSON.stringify(cart));
+        alert(`${product.name} added to cart!`);
+      } else {
+        alert(`${product.name} is already in the cart.`);
+      }
+    }
+    searchBox.addEventListener("input", () => {
+      const query = searchBox.value.toLowerCase().trim();
+      const filtered = products.filter(
+        p => p.name.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query)
+      );
+      renderProducts(filtered);
+    });
+        renderProducts(products);
+
+  </script>
+</body>
+</html>
